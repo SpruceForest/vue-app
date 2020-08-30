@@ -36,7 +36,7 @@
 </template>
 
 <script>
-    import {isLogin,logOut} from '../../apis/apis.js'
+    import {logOut} from '../../apis/apis.js'
     export default {
         props:{
           changeShow:{
@@ -70,7 +70,7 @@
         },
         computed:{
           user(){
-              return this.username ? this.username : this.$store.state.getUser.username
+              return this.$store.state.getUser.username
           }
         },
         watch:{
@@ -86,11 +86,7 @@
             }
         },
         mounted(){
-            isLogin().then(res=>{
-                if(res.code == 0){
-                    this.username = res.username;
-                }
-            })
+            this.$store.dispatch('getUser/getUserName')
         }
     }
 </script>

@@ -5,8 +5,7 @@
                 <skeleton></skeleton>
             </template>
             <template v-else>
-                <work-main :img-data="imgData"></work-main>
-                <Article :data="workData"></Article>
+                <work-main :workData="workData" :img-data="imgData"></work-main>
             </template>
         </frames>
         <footer class="miiapv_footer">回复本帖</footer>
@@ -19,10 +18,10 @@
     import Frames from "../../common/component/frames";
     import Skeleton from "../../common/component/skeleton";
     import WorkMain from "./workMain";
-    import Article from "./article";
+
     export default {
         name: "index",
-        components: {Frames,Skeleton,WorkMain,Article},
+        components: {Frames,Skeleton,WorkMain},
         data(){
             return {
                 imgData:[],

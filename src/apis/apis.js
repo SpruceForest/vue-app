@@ -67,3 +67,18 @@ export async function getInfo(params) {
     return await http.post('/lecturer/info',params);
 }
 
+//是否点赞
+export async function getGood(params) {
+    return await http.post('/lecturer/getgood',params);
+}
+
+//点赞
+export async function setGood(params) {
+    return await http.post('/lecturer/good',params);
+}
+
+//取消点赞
+export async function cancelGood(params) {
+    return await http.post('/lecturer/cancelgood',params);
+}
+

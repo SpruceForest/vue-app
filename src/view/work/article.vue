@@ -12,9 +12,6 @@
                 default:null,
                 type:Object
             }
-        },
-        created(){
-            console.log(this.data)
         }
     }
 </script>

@@ -5,17 +5,29 @@
                 <img :src="item"/>
             </template>
         </tab>
+        <div class="miiaov_box">
+            <Article :data="workData"></Article>
+            <article class="miiaov_comment">
+                <good :goodNub="workData.good" :id="workData.id" ></good>
+            </article>
+        </div>
     </div>
 </template>
 
 <script>
     import Tab from "../../common/component/tab";
+    import Article from "./article";
+    import Good from "./good";
     export default {
-        components: {Tab},
+        components: {Tab,Article,Good},
         props:{
             imgData:{
                 default:()=>[],
                 type:Array
+            },
+            workData:{
+                default:null,
+                type:Object
             }
         }
     }

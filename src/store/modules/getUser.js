@@ -1,3 +1,4 @@
+import {isLogin} from '../../apis/apis.js'
 const getUser = {
     namespaced:true,
     state:{
@@ -9,6 +10,14 @@ const getUser = {
             state.username = data
         }
     },
-    actions:{}
+    actions:{
+        async getUserName(store){
+            await isLogin().then(res=>{
+                if(res.code == 0){
+                    store.commit('getUserName',res.username);
+                }
+            })
+        }
+    }
 }
 export default getUser;
