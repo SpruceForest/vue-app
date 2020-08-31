@@ -86,3 +86,8 @@ export async function cancelGood(params) {
 export async function getMessageList({page,...params}) {
     return await http.post(`/lecturer/getcomment?page=${page}&rows=10`,params);
 }
+
+//评论
+export async function addComment(params) {
+    return await http.post('/lecturer/addcomment',params);
+}

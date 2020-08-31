@@ -15,7 +15,15 @@
                 ></work-main>
             </template>
         </frames>
-        <footer class="miiapv_footer">回复本帖</footer>
+        <footer
+                class="miiapv_footer"
+                @click="setShow"
+        >回复本帖</footer>
+        <message
+            :show="showMessage"
+            @increment="setShow2"
+            :id="workData.id"
+        ></message>
     </div>
 </template>
 
@@ -25,14 +33,16 @@
     import Frames from "../../common/component/frames";
     import Skeleton from "../../common/component/skeleton";
     import WorkMain from "./workMain";
+    import Message from "./message";
 
     export default {
         name: "index",
-        components: {Frames,Skeleton,WorkMain},
+        components: {Frames,Skeleton,WorkMain,Message},
         data(){
             return {
                 imgData:[],
-                messageListData:[]
+                // messageListData:[],
+                showMessage:false
             }
         },
         methods:{
@@ -43,12 +53,26 @@
                 if(cab){
                     cab(res);
                 }
-                this.messageListData = this.$store.state.messageList.messageList;
+                // this.messageListData = this.$store.state.messageList.messageList;
             },
             async getImgData(){ //获取图片数据
                 let {id} = this.$route.params;
                 await this.$store.dispatch('work/setWork',{article_id:id});
                 this.imgData = this.$store.state.work.data.image_path.map(item=>item.path)
+            },
+            setShow(){
+                let {username} = this.$store.state.getUser;
+                if(username){
+                    this.showMessage = true;
+                }else{
+                    this.$router.push({
+                        path:'/login'
+                    })
+                }
+            },
+            setShow2(val){
+                console.log(val)
+                this.showMessage = val;
             }
         },
         computed:{
@@ -57,6 +81,9 @@
             },
             workData(){
                 return this.$store.state.work.data;
+            },
+            messageListData(){
+                return this.$store.state.messageList.messageList;
             }
         },
         async mounted(){

@@ -48,6 +48,7 @@
         },
         watch:{
             datas(val){
+                console.log(val)
                 this.messageListData = val
             }
         }
