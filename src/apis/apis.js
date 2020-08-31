@@ -82,3 +82,7 @@ export async function cancelGood(params) {
     return await http.post('/lecturer/cancelgood',params);
 }
 
+//详情页留言列表
+export async function getMessageList({page,...params}) {
+    return await http.post(`/lecturer/getcomment?page=${page}&rows=10`,params);
+}

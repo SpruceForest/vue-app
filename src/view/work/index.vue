@@ -1,11 +1,18 @@
 <template>
     <div>
-        <frames>
+        <frames
+            :pullUp=true
+            @getData="getMessageData"
+        >
             <template v-if="loading">
                 <skeleton></skeleton>
             </template>
             <template v-else>
-                <work-main :workData="workData" :img-data="imgData"></work-main>
+                <work-main
+                        :workData="workData"
+                        :img-data="imgData"
+                        :datas="messageListData"
+                ></work-main>
             </template>
         </frames>
         <footer class="miiapv_footer">回复本帖</footer>
@@ -25,6 +32,23 @@
         data(){
             return {
                 imgData:[],
+                messageListData:[]
+            }
+        },
+        methods:{
+            async getMessageData(cab){ //评论列表
+                let res = await this.$store.dispatch('messageList/setMessageList',{
+                    article_id: this.workData.id
+                });
+                if(cab){
+                    cab(res);
+                }
+                this.messageListData = this.$store.state.messageList.messageList;
+            },
+            async getImgData(){ //获取图片数据
+                let {id} = this.$route.params;
+                await this.$store.dispatch('work/setWork',{article_id:id});
+                this.imgData = this.$store.state.work.data.image_path.map(item=>item.path)
             }
         },
         computed:{
@@ -36,13 +60,16 @@
             }
         },
         async mounted(){
-            let {id} = this.$route.params;
-            await this.$store.dispatch('work/setWork',{article_id:id});
-            this.imgData = this.$store.state.work.data.image_path.map(item=>item.path)
+            await this.getImgData();
+            await this.getMessageData();
         },
         beforeDestroy(){
+            //重置数据
             this.$store.commit("work/setWork",{
                 type: "WORK_RESET"
+            });
+            this.$store.commit('messageList/setMessageList',{
+                type:"MESSAGE_RESET"
             })
         }
     }

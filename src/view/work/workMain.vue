@@ -9,6 +9,7 @@
             <Article :data="workData"></Article>
             <article class="miiaov_comment">
                 <good :goodNub="workData.good" :id="workData.id" ></good>
+                <message-list :datas="datas"></message-list>
             </article>
         </div>
     </div>
@@ -18,8 +19,9 @@
     import Tab from "../../common/component/tab";
     import Article from "./article";
     import Good from "./good";
+    import MessageList from "./messageList";
     export default {
-        components: {Tab,Article,Good},
+        components: {Tab,Article,Good,MessageList},
         props:{
             imgData:{
                 default:()=>[],
@@ -28,6 +30,10 @@
             workData:{
                 default:null,
                 type:Object
+            },
+            datas:{
+                default:()=>[],
+                type:Array
             }
         }
     }
