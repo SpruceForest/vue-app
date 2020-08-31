@@ -40,7 +40,7 @@
           return {
               changeShow:false,
               innerH:0,
-              pageScroll:null
+              // pageScroll:null
           }
         },
         components:{
@@ -57,20 +57,20 @@
         },
         mounted(){
 
-            this.pageScroll = new BScroll(this.$refs.wrap,{
+            window.pageScroll = new BScroll(this.$refs.wrap,{
                 preventDefaultException:{
                     tagName:/^(INPUT|TEXTAREA|BUTTON|SELECT|A)$/,
                     className: /(^|\s)work_a(\s|$)/
                 },
                 pullUpLoad:this.pullUp?{threshold:200}:false //上拉加载 threshold距离
             });
-            this.pageScroll.on("pullingUp",async ()=>{ //上拉事件
+            window.pageScroll.on("pullingUp",async ()=>{ //上拉事件
                 await this.$emit('getData',(res)=>{
                     if(res){
-                        this.pageScroll.finishPullUp();
-                        this.pageScroll.refresh(); //立即刷新
+                        window.pageScroll.finishPullUp();
+                        window.pageScroll.refresh(); //立即刷新
                     }else{
-                        this.pageScroll.closePullUp();
+                        window.pageScroll.closePullUp();
                     }
                 });
             })

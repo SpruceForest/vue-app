@@ -20,6 +20,9 @@
                         </div>
                     </li>
                 </ul>
+                <a class="comment_list_more">
+                    {{loadEnd?"没有新的数据了":(loading?"正在加载中":"上滑加载更多")}}
+                </a>
             </div>
         </template>
     </div>
@@ -44,11 +47,16 @@
                 return function(val){
                     return ToDate(val)
                 }
+            },
+            loadEnd(){
+                return this.$store.state.messageList.loadEnd;
+            },
+            loading(){
+                return this.$store.state.messageList.loading;
             }
         },
         watch:{
             datas(val){
-                console.log(val)
                 this.messageListData = val
             }
         }

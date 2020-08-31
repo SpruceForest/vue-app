@@ -49,6 +49,7 @@ const messageList = {
                     type:'MESSAGE_LOADOVER',
                     messageList:res
                 })
+                return true;
             }
         }
     }
